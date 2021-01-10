@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>canvas</title>
+  <script src="./modernizer/modernizr-custom.js"></script>
+  <!-- => 존재하는지 여부를 확인해주는 라이브러리 -->
+  <style>
+  canvas { border: 1px solid salmon; }
+  .canvas2 {
+    width: 500px;
+    height: 300px;  
+  }
+  </style>
+</head>
+
+<body>
+  <!-- 강의 :: https://www.youtube.com/watch?v=ovf8cbKtBH0 -->
+  <h1>캔버스 사이즈 설정</h1>
+  <canvas class="canvas1" width="500" height="300">이 브라우저는 캔버스를 지원하지 않습니다.</canvas>
+  <canvas class="canvas2" width="1000" height="600">이 브라우저는 캔버스를 지원하지 않습니다.</canvas>
+
+  <script>
+    // canvas 지원 여부 확인
+    // if (Modernizr.canvas) console.log('Canvas를 지원하는 브러우저입니다.')
+    
+    // const canvas = document.querySelector('canvas');
+    // if (canvas.getContext) console.log('캔버스 지원')
+
+    const canvas1 = document.querySelector('.canvas1');
+    const canvas2 = document.querySelector('.canvas2');
+    const context1 = canvas1.getContext('2d');
+    const context2 = canvas2.getContext('2d');
+
+    context1.arc(100, 100, 50, 0, Math.PI * 2, false);
+    context2.arc(100, 100, 50, 0, Math.PI * 2, false);
+
+    context1.fill();
+    context2.fill();
+    // css + canvas로 width / height조절을 다르게 할 수도 있습니다!
+    // 해상도를 위해서 canvas 사이즈를 크게 + css로 사이즈 조절을 할경우 해상도가 높게 나옴 => 성능이 느려짐
+  </script>
+</body>
+</html>

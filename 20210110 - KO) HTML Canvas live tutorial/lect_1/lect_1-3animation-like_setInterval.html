@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>canvas</title>
+  <style>
+  canvas { background-color: #eee; }
+  </style>
+</head>
+
+<body>
+  <h1>캔버스 애니메이션 - requestAnimationFrame</h1>
+  <canvas class="canvas" width="600" height="400">이 브라우저는 캔버스를 지원하지 않습니다.</canvas>
+
+  <script>
+    const canvas = document.querySelector('.canvas');
+    const context = canvas.getContext('2d');
+    let xPos = 10;
+    let count = 0;
+
+    function drawing () {
+      count++;
+
+      // 30 배수일 경우 동작..! = setInterval 처럼 동작합니다.
+      if (count % 30 === 0) {
+        console.log(count)
+        context.clearRect(0, 0, canvas.width, canvas.height);
+  
+        context.beginPath();
+        context.arc(xPos, 150, 5, 0, Math.PI * 2, false)
+        context.fill()
+        context.closePath();
+        xPos += 3;
+      }
+
+      requestAnimationFrame(drawing)
+    }
+
+    drawing()
+
+    // setInteral 과 requestAnimationFrame 차이
+    /*
+      모든 캔버스를 매번 리랜더링 할때마다 성능의 문제가 있음
+      -> setInterval을 사용할 경우 렌더링 시간에 이슈가 발생할 수 있어요.
+      requestAnimationFrame은 성능 괜춘..
+    */
+  </script>
+</body>
+</html>

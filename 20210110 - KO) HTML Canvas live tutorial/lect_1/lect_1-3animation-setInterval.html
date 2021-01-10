@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>canvas</title>
+  <style>
+  canvas { background-color: #eee; }
+  </style>
+</head>
+
+<body>
+  <h1>캔버스 애니메이션 - requestAnimationFrame</h1>
+  <canvas class="canvas" width="600" height="400">이 브라우저는 캔버스를 지원하지 않습니다.</canvas>
+
+  <script>
+    const canvas = document.querySelector('.canvas');
+    const context = canvas.getContext('2d');
+    let xPos = 10;
+
+    function drawing () {
+      // 캔버스 전체를 지움(x, y, width, height)
+      context.clearRect(0, 0, canvas.width, canvas.height);
+
+      context.beginPath();
+      context.arc(xPos, 150, 5, 0, Math.PI * 2, false)
+      context.fill()
+      context.closePath();
+      xPos += 10;
+
+      // console.log('drawing...')
+    }
+
+    // 성능 이슈가 있을 수 있음..!
+    setInterval(drawing, 500)
+  </script>
+</body>
+</html>

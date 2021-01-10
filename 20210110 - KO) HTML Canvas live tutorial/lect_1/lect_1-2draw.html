@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>canvas</title>
+  <style>
+  canvas { background-color: #eee; }
+  </style>
+</head>
+
+<body>
+  <h1>캔버스 기본 설정</h1>
+  <canvas class="canvas" width="600" height="400">이 브라우저는 캔버스를 지원하지 않습니다.</canvas>
+
+  <script>
+    const canvas = document.querySelector('.canvas');
+    const context = canvas.getContext('2d');
+    console.log(context)
+
+    // 💖rect
+    context.fillStyle = 'blue';
+    context.fillRect(50, 50, 100, 100);
+
+    context.fillStyle = 'red';
+    context.fillRect(0, 0, 100, 100);
+
+    context.clearRect(80, 80, 50, 50);
+    context.strokeRect(150, 150, 100, 100);
+
+    // 💖path
+    context.beginPath();
+    context.moveTo(300, 100); // start point
+    context.lineTo(400, 200);
+    context.stroke(); // end point
+    context.closePath();
+
+    // 💖circle
+    // (중심의 x, y 위치, 반지름, start , end degree, 시계방향 :: boolean)
+    function toRadian (deg) {
+      return deg * Math.PI  / 180;
+    }
+
+    context.beginPath();
+    context.fillStyle = 'skyblue';
+    context.arc(400, 300, 50, 0, toRadian(360), false);
+    context.fill()
+    context.closePath();
+
+    context.beginPath();
+    context.arc(400, 300, 50, 0, toRadian(140), true);
+    context.stroke();
+    context.closePath();
+
+
+
+  </script>
+</body>
+</html>
