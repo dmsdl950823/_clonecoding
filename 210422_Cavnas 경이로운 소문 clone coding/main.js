@@ -2,7 +2,21 @@ const cm = {
     canvas: undefined,
     context: undefined,
     canvasWidth: 0,
-    canvasHeight: 0
+    canvasHeight: 0,
+    colors: [
+        '222, 35, 18',
+        '238, 150, 63',
+        '246, 228, 0',
+        '110, 210, 70',
+        '185, 22, 226'
+    ],
+    colors2: [
+        '255, 150',
+        '255, 200, 150',
+        '255, 250, 180',
+        '195, 255, 170',
+        '239, 173, 255'
+    ]
 }
 
 function init () {
@@ -12,7 +26,10 @@ function init () {
     const canvasContainer = document.querySelector('.canvas-container')
     // const dpr = window.devicePixelRatio > 1 ? 2 : 1 // 고해상도 처리 :: 6 분에 설명
     const dpr = 1
-
+    const mouse = { x: 0, y: 0 } // 마우스 위치 저장
+    const lights = []
+    let indexOfLight = 0
+    
     // 캔버스 사이즈 설정
     function setSize () {
         cm.canvasWidth = canvasContainer.clientWidth
@@ -28,14 +45,23 @@ function init () {
     }
 
     // 요소 추가
-    const line = new Line(100, 400)
 
     function draw () {
         cm.context.clearRect(0, 0, cm.canvasWidth, cm.canvasHeight)
 
-        line.draw()
+        for (let i = 0; i < lights.length; i++) {
+            lights[i].draw()
+        }
         requestAnimationFrame(draw)
     }
+
+    cm.canvas.addEventListener('click', function (e) {
+        mouse.x = e.clientX - cm.canvas.getBoundingClientRect().left
+        mouse.y = e.clientY - cm.canvas.getBoundingClientRect().top
+
+        const light = new Light (mouse.x, mouse.y)
+        lights.push(light)
+    })
 
     window.addEventListener('resize', setSize)
     window.addEventListener('load', setup)

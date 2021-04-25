@@ -50,5 +50,35 @@ class Line {
 }
 
 class Light {
+    constructor (x, y) {
+        this.x = x
+        this.y = y
+        this.width = 20
+        this.height = 30
 
+        const numberOfLines = 5
+        this.lines = []
+        for (let i = 0; i < numberOfLines; i++) {
+            this.lines.push(
+                new Line(
+                    this.x + (Math.random() * this.width - this.width + 0.5),
+                    this.y
+                )
+            )
+        }
+
+        this.gradient = cm.context.createLinearGradient(
+            0, cm.canvasHeight - (this.height + (cm.canvasHeight - this.y)),
+            0, this.y
+        )
+        // this.gradient.addColorStop(0, `rgba(${cm.colors[index]}), 0`)
+    }
+
+    draw () {
+        let line
+        for (let i = 0; i < this.lines.length; i++) {
+            line = this.lines[i]
+            line.draw()
+        }
+    }
 }
