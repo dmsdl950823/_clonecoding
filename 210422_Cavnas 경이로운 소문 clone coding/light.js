@@ -8,17 +8,26 @@ class Particle {
 
     draw () {
         cm.context.beginPath()
-        cm.context.fillStyle = "blue"
+        // cm.context.fillStyle = "blue"
         cm.context.arc(this.x, this.y, this.radius, 0, Math.PI * 2)
         cm.context.fill()
     }
 }
 
 class Line {
-    constructor (x, y) {
+    constructor (index, x, y) {
         this.x = x
         this.y = y
         this.height = 300
+
+        const gradientStartY = cm.canvasHeight - (this.height + (cm.canvasHeight - this.y))
+        this.gradient = cm.context.createLinearGradient(
+            0, gradientStartY,
+            0, this.y
+        )
+        this.gradient.addColorStop(0, `rgba(${cm.colors2[index]}, 0)`)
+        this.gradient.addColorStop(0.5, `rgba(${cm.colors2[index]}, 0.5)`)
+        this.gradient.addColorStop(1, `rgba(${cm.colors2[index]}, 0.8)`)
 
         const numberOfParticles = 30
         this.particles = []
@@ -30,7 +39,6 @@ class Line {
     }
 
     draw () {
-        console.log('??')
         cm.context.beginPath()
         cm.context.moveTo(this.x, this.y)
         cm.context.lineTo(this.x, this.y - this.height)
@@ -40,7 +48,6 @@ class Line {
         for (let i = 0; i < this.particles.length; i++) {
             particle = this.particles[i]
             particle.y -= particle.speed
-            console.log(particle.y)
             if (particle.y < this.y - this.height) {
                 particle.y = this.y
             }
@@ -50,7 +57,7 @@ class Line {
 }
 
 class Light {
-    constructor (x, y) {
+    constructor (index, x, y) {
         this.x = x
         this.y = y
         this.width = 20
@@ -61,7 +68,8 @@ class Light {
         for (let i = 0; i < numberOfLines; i++) {
             this.lines.push(
                 new Line(
-                    this.x + (Math.random() * this.width - this.width + 0.5),
+                    index,
+                    this.x + (Math.random() * this.width - this.width * 0.5),
                     this.y
                 )
             )
@@ -71,10 +79,50 @@ class Light {
             0, cm.canvasHeight - (this.height + (cm.canvasHeight - this.y)),
             0, this.y
         )
-        // this.gradient.addColorStop(0, `rgba(${cm.colors[index]}), 0`)
+        // this.gradient.addColorStop(1,  `rgba(255, 255, 255, 0)`)
+        this.gradient.addColorStop(1,  `rgba(${cm.colors[index]}, 0)`)
+        this.gradient.addColorStop(0.5, `rgba(${cm.colors[index]}, 0.5)`)
+        this.gradient.addColorStop(0.75, `rgba(${cm.colors[index]}, 0.5)`)
+        this.gradient.addColorStop(1, `rgba(${cm.colors[index]}, 1)`)
     }
 
     draw () {
+
+        cm.context.fillStyle = this.gradient
+        cm.context.strokeStyle = this.gradient
+
+        cm.context.save()
+        cm.context.filter = 'blur(20px)'
+        cm.context.beginPath()
+        cm.context.ellipse(
+            this.x,
+            this.y,
+            this.width * 2,
+            this.width * 0.5,
+            0, 0, Math.PI * 2
+        )
+        cm.context.fill()
+
+        cm.context.filter = 'blur(5px)'
+        cm.context.beginPath()
+        cm.context.ellipse(
+            this.x,
+            this.y,
+            this.width,
+            this.width * 0.25,
+            0, 0, Math.PI * 2
+        )
+        cm.context.fill()
+        
+        cm.context.fillRect(
+            this.x - this.width * 0.5,
+            cm.canvasHeight - (this.height + (cm.canvasHeight - this.y)),
+            this.width,
+            this.height
+        )
+
+        cm.context.restore()
+
         let line
         for (let i = 0; i < this.lines.length; i++) {
             line = this.lines[i]
