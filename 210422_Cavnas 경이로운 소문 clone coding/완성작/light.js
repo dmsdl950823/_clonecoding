@@ -60,6 +60,7 @@ class Light {
     constructor (index, x, y) {
         this.x = x
         this.y = y
+        this.yForOrder = this.y
         this.width = 20
         this.height = 30
 
@@ -82,8 +83,7 @@ class Light {
         // this.gradient.addColorStop(1,  `rgba(255, 255, 255, 0)`)
         this.gradient.addColorStop(1,  `rgba(${cm.colors[index]}, 0)`)
         this.gradient.addColorStop(0.5, `rgba(${cm.colors[index]}, 0.5)`)
-        this.gradient.addColorStop(0.75, `rgba(${cm.colors[index]}, 0.5)`)
-        this.gradient.addColorStop(1, `rgba(${cm.colors[index]}, 1)`)
+        this.gradient.addColorStop(1, `rgba(${cm.colors[index]}, 0.8)`)
     }
 
     draw () {
@@ -97,19 +97,20 @@ class Light {
         cm.context.ellipse(
             this.x,
             this.y,
-            this.width * 2,
-            this.width * 0.5,
+            this.width * 2 + Math.abs(Math.sin(this.angle * Math.PI / 180 * 30)) * 2,
+            this.width * 0.5 + Math.abs(Math.sin(this.angle * Math.PI / 180 * 30)) * 2,
             0, 0, Math.PI * 2
         )
         cm.context.fill()
+        this.angle ++
 
         cm.context.filter = 'blur(5px)'
         cm.context.beginPath()
         cm.context.ellipse(
             this.x,
             this.y,
-            this.width,
-            this.width * 0.25,
+            this.width + Math.abs(Math.sin(this.angle * Math.PI / 180 * 30)) * 5,
+            this.width * 0.25 + Math.abs(Math.sin(this.angle * Math.PI / 180 * 30)) * 5,
             0, 0, Math.PI * 2
         )
         cm.context.fill()
