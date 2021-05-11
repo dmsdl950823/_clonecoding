@@ -115,7 +115,7 @@ function init () {
         for (let i = 0; i < allItems.length; i++) {
             item = allItems[i]
             if (item instanceof Charactor) {
-                item.draw()
+                // item.draw() // 주석 😢
             } else {
                 scaleRatio = item.y / cm.canvasHeight + 1
                 
@@ -174,7 +174,7 @@ function init () {
         setZOrder()
     })
 
-    window.addEventListener('resize', setSize) // 💋💋
+    window.addEventListener('resize', setSize)
     window.addEventListener('load', setup)
 }
 

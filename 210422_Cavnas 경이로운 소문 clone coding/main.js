@@ -40,18 +40,13 @@ function setCanvasSize () {
     if (dpr > 1) cm.context.scale(dpr, dpr)
 }
 
-function draw () {
-    console.log('drawing...')
-    // frame 마다 darw() 메서드를 호출합니다.
-    requestAnimationFrame(draw)
-}
-
 /**
  * 초기 캔버스 세팅
  */
 function init () {
     cm.canvas = document.querySelector('#the-canvas')
     cm.context = cm.canvas.getContext('2d')
+    const lights = []
 
     // 캔버스 세팅
     const setUp = () => {
@@ -59,8 +54,31 @@ function init () {
         draw()
     }
 
+    // 클릭 이벤트
+    cm.canvas.addEventListener('click', e => {
+        const mouse = { x: 0, y: 0 }
+        mouse.x = e.clientX - cm.canvas.getBoundingClientRect().left
+        mouse.y = e.clientY - cm.canvas.getBoundingClientRect().top
+
+        const light = new Light(mouse.x, mouse.y)
+        lights.push(light)
+    })
+
     window.addEventListener('resize', setCanvasSize)
     window.addEventListener('load', setUp)
+
+    // draw 메서드
+    function draw () {
+        cm.context.clearRect(0, 0, cm.canvasWidth, cm.canvasHeight)
+        
+        for (let i = 0; i < lights.length; i++) {
+            const light = lights[i]
+            light.draw()
+        }
+        
+        // frame 마다 darw() 메서드를 호출합니다.
+        requestAnimationFrame(draw)
+    }
 }
 
 init()
