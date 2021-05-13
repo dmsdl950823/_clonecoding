@@ -4,20 +4,20 @@ const cm = {
     canvasWidth: 0,
     canvasHeight: 0,
     colors: [
-        '222, 35, 18', // red
-        '238, 150, 63',
-        '246, 228, 0',
-        '110, 210, 70',
-        '65, 145, 255',
-        '185, 22, 226'
+        ['222, 35, 18', '255, 158, 2', '239, 255, 2'], // red
+        ['238, 150, 63', '238, 235, 63', '635, 238, 63'],
+        ['246, 228, 0', '189, 246, 0', '98, 227, 0'],
+        ['110, 210, 70', '0, 168, 106', '0, 153, 168'],
+        ['65, 145, 255', '97, 0, 209', '143, 0, 163'],
+        ['185, 22, 226', '226, 22, 210', '226, 22, 135']
     ],
     colors2: [
-        '255, 160, 150',
-        '255, 200, 150',
-        '255, 250, 180',
-        '195, 255, 170',
-        '200, 220, 255',
-        '239, 173, 255'
+        ['255, 160, 150', '255, 208, 150', '253, 255, 150'],
+        ['255, 200, 150', '255, 237, 150', '247, 255, 150'],
+        ['255, 250, 180', '245, 255, 180', '222, 255, 180'],
+        ['195, 255, 170', '180, 255, 185', '180, 255, 222'],
+        ['200, 220, 255', '200, 208, 255', '211, 200, 255'],
+        ['239, 173, 255', '255, 149, 240', '255, 176, 210']
     ]
 }
 
@@ -47,6 +47,7 @@ function init () {
     cm.canvas = document.querySelector('#the-canvas')
     cm.context = cm.canvas.getContext('2d')
     const lights = []
+    let indexOfLight = 0
 
     // 캔버스 세팅
     const setUp = () => {
@@ -60,7 +61,10 @@ function init () {
         mouse.x = e.clientX - cm.canvas.getBoundingClientRect().left
         mouse.y = e.clientY - cm.canvas.getBoundingClientRect().top
 
-        const light = new Light(mouse.x, mouse.y)
+        indexOfLight++
+        if (indexOfLight === cm.colors.length) indexOfLight = 0
+
+        const light = new Light(indexOfLight, mouse.x, mouse.y)
         lights.push(light)
     })
 

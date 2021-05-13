@@ -62,7 +62,7 @@ class Light {
         this.y = y
         this.yForOrder = this.y
         this.width = 20
-        this.height = 30
+        this.height = 300
 
         const numberOfLines = 5
         this.lines = []
