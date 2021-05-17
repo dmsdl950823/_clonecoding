@@ -3,6 +3,7 @@ const cm = {
     context: undefined,
     canvasWidth: 0,
     canvasHeight: 0,
+    playedFrame: 0,
     colors: [
         ['222, 35, 18', '255, 158, 2', '239, 255, 2'], // red
         ['238, 150, 63', '238, 235, 63', '635, 238, 63'],
@@ -18,7 +19,12 @@ const cm = {
         ['195, 255, 170', '180, 255, 185', '180, 255, 222'],
         ['200, 220, 255', '200, 208, 255', '211, 200, 255'],
         ['239, 173, 255', '255, 149, 240', '255, 176, 210']
-    ]
+    ],
+    charactorImg: {
+        somun: './images/sprite-somun.png',
+        ji: './images/sprite-ji.png',
+        bg: './images/BG City.jpg'
+    }
 }
 
 
@@ -41,6 +47,12 @@ function setCanvasSize () {
 }
 
 /**
+ * 캐릭터 생성
+ */
+function setCharactors () {
+}
+
+/**
  * 초기 캔버스 세팅
  */
 function init () {
@@ -53,6 +65,7 @@ function init () {
     const setUp = () => {
         setCanvasSize()
         draw()
+        setCharactors()
     }
 
     // 클릭 이벤트
@@ -73,11 +86,17 @@ function init () {
 
     // draw 메서드
     function draw () {
+        
         cm.context.clearRect(0, 0, cm.canvasWidth, cm.canvasHeight)
         
         for (let i = 0; i < lights.length; i++) {
             const light = lights[i]
             light.draw()
+        }
+
+        cm.playedFrame++
+        if (cm.playedFrame > 1000000) {
+            cm.playedFrame = 0
         }
         
         // frame 마다 darw() 메서드를 호출합니다.
