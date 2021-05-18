@@ -80,6 +80,7 @@ function init () {
     function setup () {
         setSize()
         setCharactors()
+        console.log(111)
         draw()
     }
 
@@ -115,7 +116,7 @@ function init () {
         for (let i = 0; i < allItems.length; i++) {
             item = allItems[i]
             if (item instanceof Charactor) {
-                // item.draw() // 주석 😢
+                item.draw() // 캐릭터 그리기
             } else {
                 scaleRatio = item.y / cm.canvasHeight + 1
                 

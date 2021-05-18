@@ -39,17 +39,13 @@ function setCanvasSize () {
     cm.canvasWidth = canvasContainer.clientWidth
     cm.canvasHeight = canvasContainer.clientHeight
 
+    console.log(cm.canvasWidth, '--?')
+
     cm.canvas.width = cm.canvasWidth
     cm.canvas.height = cm.canvasHeight
 
     // canvas 해상도, 비율 설정
     if (dpr > 1) cm.context.scale(dpr, dpr)
-}
-
-/**
- * 캐릭터 생성
- */
-function setCharactors () {
 }
 
 /**
@@ -59,6 +55,7 @@ function init () {
     cm.canvas = document.querySelector('#the-canvas')
     cm.context = cm.canvas.getContext('2d')
     const lights = []
+    let charactors = []
     let indexOfLight = 0
 
     // 캔버스 세팅
@@ -66,6 +63,24 @@ function init () {
         setCanvasSize()
         draw()
         setCharactors()
+    }
+
+    // 캐릭터 생성
+    function setCharactors () {
+        const somun = new Charactor(
+            cm.charactorImg.somun,
+            'underAttack',
+            (cm.canvasWidth * 0.5) - 256 + 64,
+            (cm.canvasHeight * 0.5) - 64
+        )
+        const ji = new Charactor(
+            cm.charactorImg.ji,
+            'attack',
+            (cm.canvasWidth * 0.5) - 64,
+            (cm.canvasHeight * 0.5) - 64
+        )
+
+        charactors = [somun, ji]
     }
 
     // 클릭 이벤트
@@ -88,10 +103,17 @@ function init () {
     function draw () {
         
         cm.context.clearRect(0, 0, cm.canvasWidth, cm.canvasHeight)
-        
+
+        // light draw
         for (let i = 0; i < lights.length; i++) {
             const light = lights[i]
             light.draw()
+        }
+
+        // charactor draw
+        for (let i = 0; i < charactors.length; i++) {
+            const charactor = charactors[i]
+            charactor.draw()
         }
 
         cm.playedFrame++
