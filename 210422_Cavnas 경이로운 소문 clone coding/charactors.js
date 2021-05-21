@@ -5,6 +5,7 @@ class Charactor {
         this.x = x
         this.y = y
         // this.yForOrder = this.y + this.height - 24
+        this.yForOrder = this.y
         this.action = action
         this.image = new Image()
         this.image.src = imageSrc
@@ -31,8 +32,9 @@ class Charactor {
         this.frame = this.startFrame
     }
 
-    updateAction () {
-
+    updateAction (action) {
+        this.action = action
+        this.setAction()
     }
 
     draw () {

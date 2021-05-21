@@ -88,6 +88,7 @@ class Light {
         this.index = index
         this.x = x
         this.y = y
+        this.yForOrder = this.y
         this.width = 20 // line width
         this.height = 300 // line height
 

@@ -39,13 +39,31 @@ function setCanvasSize () {
     cm.canvasWidth = canvasContainer.clientWidth
     cm.canvasHeight = canvasContainer.clientHeight
 
-    console.log(cm.canvasWidth, '--?')
-
     cm.canvas.width = cm.canvasWidth
     cm.canvas.height = cm.canvasHeight
 
     // canvas 해상도, 비율 설정
     if (dpr > 1) cm.context.scale(dpr, dpr)
+}
+
+/**
+ * 버블 정렬 (순서 정의)
+ * @param {Array} items allItems 
+ */
+function setZOrder (items) {
+    let temp
+    for (let i = 0; i < items.length; i++) {
+        for (let j = 0; j < items.length; j++) {
+            if (j < items.length - 1) {
+                if (items[j].yForOrder > items[j + 1].yForOrder) {
+                    temp = items[j]
+                    items[j] = items[j + 1]
+                    items[j + 1] = temp
+                }
+            }
+        }
+    }
+    return items
 }
 
 /**
@@ -55,7 +73,8 @@ function init () {
     cm.canvas = document.querySelector('#the-canvas')
     cm.context = cm.canvas.getContext('2d')
     const lights = []
-    let charactors = []
+    const charactors = []
+    const allItems = []
     let indexOfLight = 0
 
     // 캔버스 세팅
@@ -80,7 +99,12 @@ function init () {
             (cm.canvasHeight * 0.5) - 64
         )
 
-        charactors = [somun, ji]
+        charactors.push(somun)
+        charactors.push(ji)
+
+        charactors.forEach(charactor => {
+            allItems.push(charactor)
+        })
     }
 
     // 클릭 이벤트
@@ -92,8 +116,18 @@ function init () {
         indexOfLight++
         if (indexOfLight === cm.colors.length) indexOfLight = 0
 
+        if (indexOfLight >= 5) {
+            charactors[0].updateAction('attack')
+            charactors[1].updateAction('underAttack')
+        }
+
         const light = new Light(indexOfLight, mouse.x, mouse.y)
         lights.push(light)
+        allItems.push(light)
+
+        setZOrder(allItems)
+
+        console.log(allItems)
     })
 
     window.addEventListener('resize', setCanvasSize)
@@ -104,17 +138,37 @@ function init () {
         
         cm.context.clearRect(0, 0, cm.canvasWidth, cm.canvasHeight)
 
-        // light draw
-        for (let i = 0; i < lights.length; i++) {
-            const light = lights[i]
-            light.draw()
-        }
+        // // light draw
+        // for (let i = 0; i < lights.length; i++) {
+        //     const light = lights[i]
+        //     light.draw()
+        // }
 
-        // charactor draw
-        for (let i = 0; i < charactors.length; i++) {
-            const charactor = charactors[i]
-            charactor.draw()
-        }
+        // // charactor draw
+        // for (let i = 0; i < charactors.length; i++) {
+        //     const charactor = charactors[i]
+        //     charactor.draw()
+        // }
+
+        // light, charactor draw
+        let item
+        let scaleRatio
+
+        allItems.forEach(item => {
+            if (item instanceof Charactor) item.draw()
+            else {
+                // 멀리있을수록 line 의 너비를 작게 그립니다
+                scaleRatio = item.y / cm.canvasHeight + 1
+
+                cm.context.save()
+                cm.context.translate(item.x, item.y)
+                cm.context.scale(scaleRatio, scaleRatio)
+                cm.context.translate(-item.x, -item.y)
+                item.draw()
+                cm.context.restore()
+            }
+        })
+
 
         cm.playedFrame++
         if (cm.playedFrame > 1000000) {

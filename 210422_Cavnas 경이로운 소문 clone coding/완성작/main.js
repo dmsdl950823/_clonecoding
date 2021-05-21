@@ -52,7 +52,6 @@ function init () {
         if (dpr > 1) cm.context.scale(dpr, dpr)
     }
 
-    // 🤦‍♀️
     function setCharactors () {
         const somun = new Charactor(
             cm.charactorSrc.somun,
