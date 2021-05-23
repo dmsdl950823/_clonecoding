@@ -4,8 +4,7 @@ class Charactor {
         this.height = 256
         this.x = x
         this.y = y
-        // this.yForOrder = this.y + this.height - 24
-        this.yForOrder = this.y
+        this.yForOrder = this.y + this.height - 24
         this.action = action
         this.image = new Image()
         this.image.src = imageSrc

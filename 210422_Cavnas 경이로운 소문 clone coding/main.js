@@ -126,7 +126,6 @@ function init () {
         allItems.push(light)
 
         setZOrder(allItems)
-
         console.log(allItems)
     })
 
