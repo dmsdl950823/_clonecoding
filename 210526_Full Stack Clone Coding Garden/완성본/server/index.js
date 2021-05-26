@@ -10,7 +10,7 @@ const rateLimit = require('express-rate-limit')
 
 const app = express()
 // const db = monk(process.env.MONGO_URI || 'localhost/meower') // deploy mode(build) || development
-const db = monk('localhost/meower') // deploy mode(build) || development
+const db = monk('localhost/meower')
 const mews = db.get('mews')
 const filter = new Filter()
 
