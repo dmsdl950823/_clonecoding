@@ -30,5 +30,8 @@ form.addEventListener('submit', e => {
         headers: {
             'content-type': 'application/json'
         }
-    }).then(response => console.log(response.json()))
+    }).then(response => response.json())
+      .then(createdMeow => {
+          console.log(createdMeow) // 보낸 데이터
+      })
 })
