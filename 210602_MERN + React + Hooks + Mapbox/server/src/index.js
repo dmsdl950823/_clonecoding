@@ -3,14 +3,22 @@ const express = require('express');
 const morgan = require('morgan'); // incomming requiest's size logger
 const helmet = require('helmet');
 const cors = require('cors');
+const mongoose = require('mongoose');
+
+require('dotenv').config();
 
 const middelware = require('./middlewares');
 
 const app = express();
+
+mongoose.connect(process.env.DATABASE_URL, {
+  useNewUrlParser: true,
+});
+
 app.use(morgan('common')); // date, REQUEST TYPE, status ..
 app.use(helmet()); // hide header :: X-Powered-By: Express
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: process.env.CORS_ORIGIN,
 }));
 
 app.get('/', (req, res) => {
