@@ -18,5 +18,7 @@ module.exports = {
     'react'
   ],
   rules: {
+    'react/destructuring-assignment': 2, // props 에 destructuring 사용
+    'react/prop-types': 'off' // propType 안정해도 되는거
   }
 }
