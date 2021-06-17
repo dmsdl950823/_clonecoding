@@ -5,14 +5,18 @@ const morgan = require('morgan');
 
 const connectDB = require('./config/db');
 
-dotenv.config({ path: './config/config.env' })
-const app = express()
+dotenv.config({ path: './config/config.env' });
 
-connectDB()
+connectDB();
 
 const transactions = require('./routes/transactions')
-app.use('/api/v1/transactions', transactions)
 
-const PORT = process.env.PORT || 5000
+const app = express();
 
-app.listen(PORT, console.log(`Server Running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold))
+app.use (express.json());
+
+app.use('/api/v1/transactions', transactions);
+
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, console.log(`Server Running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold));
