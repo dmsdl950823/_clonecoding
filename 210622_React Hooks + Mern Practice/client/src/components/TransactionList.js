@@ -8,7 +8,6 @@ export const TransactionList = () => {
 
   useEffect(() => {
     getTransactions()
-    // sample commit
   }, [])
 
   return (
