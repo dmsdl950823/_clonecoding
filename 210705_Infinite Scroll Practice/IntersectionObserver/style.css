@@ -1,0 +1,75 @@
+
+:root {
+  --radius: 10px;
+}
+
+body {
+  padding: 30px;
+  background-color: rgb(149, 184, 229);
+}
+
+#container {
+  margin: 0px auto;
+  width: 500px;
+}
+
+#list {
+  padding: 0px;
+}
+
+#list li {
+  height: 15vh;
+  line-height: 15vh;
+  display: block;
+  background-color: aliceblue;
+  margin-bottom: 15px;
+  text-align: center;
+  border-radius: var(--radius);
+  /* vertical-align: middle; */
+  font-size: 2em;
+}
+
+#msg-loading {
+  background-color: honeydew;
+  color: rgb(87, 132, 255);
+  text-align: center;
+  border-radius: var(--radius);
+  height: 5vh;
+  line-height: 5vh;
+}
+
+.fade-in {
+  opacity: 1;
+  animation-name: fadeInOpacity;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: 0.5s;
+}
+
+.fade-out {
+    opacity: 0;
+    animation-name: fadeOutOpacity;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: 0.5s;
+}
+
+@keyframes fadeInOpacity {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOutOpacity {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
