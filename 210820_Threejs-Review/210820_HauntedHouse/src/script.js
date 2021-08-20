@@ -4,24 +4,40 @@ import * as THREE from 'three'
 /**
  * Base
  */
-// Canvas ====
+// Debug
+
+// Canvas
 const canvas = document.querySelector('canvas.webgl')
 
 // Scene
 const scene = new THREE.Scene()
+// scene.fog = '?'
 
 /**
- * Textures ====
+ * Textures
  */
 
 /**
- * Lights ====
+ * House
  */
+// Temporary sphere
+// const sphere = new THREE.Mesh({
+
+// })
+// scene.add(sphere)
+
+// Floor
 
 /**
- * Sizes ====
+ * Lights
  */
+// Ambient Light
 
+// Directional Light
+
+/**
+ * Sizes
+ */
 const sizes = {
   width: window.innerWidth,
   height: window.innerHeight
@@ -29,8 +45,6 @@ const sizes = {
 
 window.addEventListener('resize', () => {
   // Update Sizes
-  sizes.width = window.innerWidth
-  sizes.height = window.innerHeight
 
   // Update Camera
 
@@ -40,5 +54,15 @@ window.addEventListener('resize', () => {
 /**
  * Camera
  */
-// Base camera
-const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
+// Base Camera
+const camera = new THREE.PerspectiveCamera()
+
+// Controls
+
+/**
+ * Renderer
+ */
+
+/**
+ * Animate
+ */
