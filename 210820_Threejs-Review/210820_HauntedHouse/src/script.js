@@ -39,11 +39,20 @@ scene.add(floor)
 /**
  * Lights
  */
-// Ambient Light
+// Ambient Light :: This light globally illuminates all objects in the scene equally.
 const ambientLight = new THREE.AmbientLight('#FFFFFF', 0.5)
-scene.add(ambientLight)
+// scene.add(ambientLight)
 
 // Directional Light
+const directionalLight = new THREE.DirectionalLight('#FFFFFF', 0.9)
+directionalLight.castShadow = true
+directionalLight.position.x = 3
+directionalLight.position.y = 6
+
+const directionalLightHelper = new THREE.DirectionalLightHelper(directionalLight, 5)
+
+scene.add(directionalLight)
+scene.add(directionalLightHelper)
 
 /**
  * Sizes
