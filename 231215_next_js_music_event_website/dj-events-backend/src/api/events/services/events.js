@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * eventss service
+ * events service
  */
 
 const { createCoreService } = require('@strapi/strapi').factories;
 
-module.exports = createCoreService('api::eventss.eventss');
+module.exports = createCoreService('api::events.events');

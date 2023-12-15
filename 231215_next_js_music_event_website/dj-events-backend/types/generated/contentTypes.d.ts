@@ -362,12 +362,12 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
-export interface ApiEventssEventss extends Schema.CollectionType {
+export interface ApiEventsEvents extends Schema.CollectionType {
   collectionName: 'event';
   info: {
-    singularName: 'eventss';
+    singularName: 'events';
     pluralName: 'event';
-    displayName: 'Events';
+    displayName: 'events';
     description: '';
   };
   options: {
@@ -375,30 +375,30 @@ export interface ApiEventssEventss extends Schema.CollectionType {
   };
   attributes: {
     name: Attribute.String;
-    slug: Attribute.UID<'api::eventss.eventss', 'name'>;
+    slug: Attribute.UID<'api::events.events', 'name'>;
     venue: Attribute.String;
     address: Attribute.String;
     date: Attribute.DateTime;
     time: Attribute.String;
     performers: Attribute.String;
-    description: Attribute.Blocks;
     image: Attribute.Media;
     user: Attribute.Relation<
-      'api::eventss.eventss',
+      'api::events.events',
       'manyToOne',
       'plugin::users-permissions.user'
     >;
+    description: Attribute.Text;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::eventss.eventss',
+      'api::events.events',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::eventss.eventss',
+      'api::events.events',
       'oneToOne',
       'admin::user'
     > &
@@ -663,7 +663,7 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     events: Attribute.Relation<
       'plugin::users-permissions.user',
       'oneToMany',
-      'api::eventss.eventss'
+      'api::events.events'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -736,7 +736,7 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
-      'api::eventss.eventss': ApiEventssEventss;
+      'api::events.events': ApiEventsEvents;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;

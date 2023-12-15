@@ -2,9 +2,9 @@
   "kind": "collectionType",
   "collectionName": "event",
   "info": {
-    "singularName": "eventss",
+    "singularName": "events",
     "pluralName": "event",
-    "displayName": "Events",
+    "displayName": "events",
     "description": ""
   },
   "options": {
@@ -13,29 +13,32 @@
   "pluginOptions": {},
   "attributes": {
     "name": {
-      "type": "string"
+      "type": "string",
+      "pluginOptions": {}
     },
     "slug": {
       "type": "uid",
       "targetField": "name"
     },
     "venue": {
-      "type": "string"
+      "type": "string",
+      "pluginOptions": {}
     },
     "address": {
-      "type": "string"
+      "type": "string",
+      "pluginOptions": {}
     },
     "date": {
-      "type": "datetime"
+      "type": "datetime",
+      "pluginOptions": {}
     },
     "time": {
-      "type": "string"
+      "type": "string",
+      "pluginOptions": {}
     },
     "performers": {
-      "type": "string"
-    },
-    "description": {
-      "type": "blocks"
+      "type": "string",
+      "pluginOptions": {}
     },
     "image": {
       "type": "media",
@@ -46,13 +49,17 @@
         "files",
         "videos",
         "audios"
-      ]
+      ],
+      "pluginOptions": {}
     },
     "user": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
       "inversedBy": "events"
+    },
+    "description": {
+      "type": "text"
     }
   }
 }
