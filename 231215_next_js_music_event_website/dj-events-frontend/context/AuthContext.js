@@ -13,9 +13,9 @@ export const AuthProvider = ({ children }) => {
     console.log(user)
   }
 
-  // Login User
+  // Login User => pages/api/login.js API 와 연결
   const login = async ({ email: identifier, password }) => {
-    console.log('Login', { identifier, password })
+    console.log('@@ Try To Login :: ', { identifier, password })
 
     const res = await fetch(`${NEXT_URL}/api/login`, {
       method: 'POST',
@@ -26,15 +26,17 @@ export const AuthProvider = ({ children }) => {
     })
 
     const data = await res.json()
-    console.log(data)
+
+    // 올바른 || 잘못된 정보를 입력해도 동작함
+    console.log('@@ CLIENT > Login Response :: ', '\n- data : ', data, '\n- res : ', res)
 
     if (res.ok) {
       setUser(data.user)
     } else {
       setError(data.message)
-      setError(null)
+      // console.log(data.message, 'ㅎㅎ')
+      setTimeout(() => setError(null), 100)
     }
-    
   }
 
   // Logout user
