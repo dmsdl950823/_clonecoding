@@ -39,7 +39,7 @@ export default function EventPage({ evt }) {
     <Layout>
       <div className={style.event}>
         <div className={style.controls}>
-          <Link href={`events/edit/${evt.id}`}> <FaPencilAlt /> Edit Event </Link>
+          <Link href={`/events/edit/${evt.id}`}> <FaPencilAlt /> Edit Event </Link>
           <a href="#" className={style.delete} onClick={deleteEvent}> <FaTimes /> Delete Event </a>
         </div>
 
@@ -101,7 +101,7 @@ export async function getStaticPaths () {
   
   const paths = events.map(evt => ({ params: { slug: evt.slug } }))
 
-  console.log(paths, '3) -> SERVER SIDE')
+  // console.log(paths, '3) -> SERVER SIDE')
 
   return { paths, fallback: true }
 }
