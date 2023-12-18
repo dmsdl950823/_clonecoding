@@ -1,24 +1,21 @@
+import moment from 'moment'
 import { ToastContainer, toast } from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css";
 
+import { FaImage } from 'react-icons/fa'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import Image from 'next/image'
 import { API_URL } from '@/config/index'
 import style from '@/styles/Form.module.css'
 
 import Layout from '@/components/Layout'
 
-export default function AddPage() {
-  const [values, setValues] = useState({
-    name: '',
-    performers: '',
-    venue: '',
-    address: '',
-    date: '',
-    time: '',
-    description: ''
-  })
+export default function EditEventPage({ evt }) {
+  const [values, setValues] = useState({ ...evt })
+
+  const [imagePreview, setImagePreview] = useState(evt.image ? evt.image.formats.thumbnail.url : null)
 
   const router = useRouter()
 
@@ -30,13 +27,13 @@ export default function AddPage() {
     const hasEmptyFields = Object.values(values).some(element => element === '')
     if (hasEmptyFields) return toast.error('Please fill in all fields');
 
-    const res = await fetch(`${API_URL}/api/event`, {
-      method: 'POST',
+    const res = await fetch(`${API_URL}/api/event/${evt.id}`, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',
         "Accept": "*/*"
       },
-      body: JSON.stringify({ data: values})
+      body: JSON.stringify({ data: values })
     })
 
     if (!res.ok) toast.error('Something went wrong')
@@ -56,9 +53,9 @@ export default function AddPage() {
 
 
   return (
-    <Layout title="Add New Event">
+    <Layout title="Edit Event">
       <Link href="/events">Go Bak</Link>
-      <h1>Add Event</h1>
+      <h1>Edit Event</h1>
 
       <ToastContainer />
 
@@ -82,7 +79,7 @@ export default function AddPage() {
           </div>
           <div>
             <label htmlFor="date">Date</label>
-            <input type="date" id="date" name="date" value={values.date} onChange={handleInputChange}></input>
+            <input type="date" id="date" name="date" value={moment(values.date).format('yyyy-MM-DD')} onChange={handleInputChange}></input>
           </div>
           <div>
             <label htmlFor="time">Time</label>
@@ -95,8 +92,26 @@ export default function AddPage() {
             <textarea type="text" id="description" name="description" value={values.description} onChange={handleInputChange}></textarea>
           </div>
 
-          <input type="submit" value="Add Event" className="btn"></input>
+          <input type="submit" value="Update Event" className="btn"></input>
       </form>
+
+      <h2>Event Image</h2>
+      { imagePreview ?
+        (<Image src={imagePreview} height={100} width={170} alt="image"/>)
+        : (<div><p>No image Uploaded</p></div>)
+      }
+
+      <div><button class="btn-secondary"><FaImage /> Set Image </button></div>
     </Layout>
   )
+}
+
+export async function getServerSideProps ({ params: { id } }) {
+  const res = await fetch(`${API_URL}/api/event/${id}`)
+  const { data } = await res.json()
+  const evt = { id: data.id, ...data.attributes }
+
+  return {
+    props: { evt }
+  }
 }

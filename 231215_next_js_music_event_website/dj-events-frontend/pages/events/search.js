@@ -46,7 +46,7 @@ export async function getServerSideProps ({ query: { term } }) {
   })
   const res = await fetch(`${API_URL}/api/event?${query}`)
   const { data } = await res.json()
-  const events = data.map(({ id, attributes }) => ({ ...id, ...attributes }))
+  const events = data.map(({ id, attributes }) => ({ id, ...attributes }))
   console.log(data);
 
   return {
