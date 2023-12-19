@@ -7,7 +7,7 @@ import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function HomePage({ events }) {
-  console.log(events, 'client side')
+  // console.log('@@ CLIENT > events', events)
 
   return (
     <Layout>

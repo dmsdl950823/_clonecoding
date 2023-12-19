@@ -12,7 +12,7 @@ import style from '@/styles/Event.module.css'
 
 // 2) 클라이언트에서 props 로 데이터 가져옴
 export default function EventPage({ evt }) {
-  console.log('2) client side', evt);
+  // console.log('@@ CLIENT > evt :: ', evt);
   
   const router = useRouter()
 

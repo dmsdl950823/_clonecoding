@@ -127,8 +127,8 @@ export async function getServerSideProps ({ params: { id }, req }) {
   const { data } = await res.json()
   const evt = { id: data.id, ...data.attributes }
 
-  // 
-  console.log('@@ Cookie :: ', req.headers.cookie);
+  // 쿠키 정보
+  // console.log('@@ SERVER > Cookie :: ', req.headers.cookie);
 
   return {
     props: { evt }
