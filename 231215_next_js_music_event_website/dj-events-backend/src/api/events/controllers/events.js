@@ -1,4 +1,5 @@
 'use strict';
+// const { sanitizeEntity } = require('strapi-utils')
 
 /**
  * events controller
